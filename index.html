@@ -29,17 +29,24 @@
             </h3>
           </div>
         </div>
-        <div class="board">
+        <div class="board"></div>
+        <div class="controls">
+          <button onclick="setDirection('up')">⬆️</button>
+          <div>
+            <button onclick="setDirection('left')">⬅️</button>
+            <button onclick="setDirection('right')">➡️</button>
+          </div>
+          <button onclick="setDirection('down')">⬇️</button>
         </div>
       </section>
       <div class="modal">
         <div class="start-game">
-            <h3>Welcome to the Snake Game</h3>
-            <button class="btn btn-start">Start</button>
+          <h3>Welcome to the Snake Game</h3>
+          <button class="btn btn-start">Start</button>
         </div>
         <div class="game-over">
-            <h3>Game Over!!</h3>
-            <button class="btn btn-restart">Restart game</button>
+          <h3>Game Over!!</h3>
+          <button class="btn btn-restart">Restart game</button>
         </div>
       </div>
     </main>

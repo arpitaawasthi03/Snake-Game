@@ -178,3 +178,16 @@ window.addEventListener("touchend", (e) => {
     else direction = "up";
   }
 });
+function setDirection(dir) {
+  direction = dir;
+}
+function setDirectionSafe(newDir) {
+  if (
+    (direction === "up" && newDir === "down") ||
+    (direction === "down" && newDir === "up") ||
+    (direction === "left" && newDir === "right") ||
+    (direction === "right" && newDir === "left")
+  ) return;
+
+  direction = newDir;
+}

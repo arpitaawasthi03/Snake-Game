@@ -111,3 +111,16 @@ section{
 .game-over{
     display: none;
 }
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.controls button {
+  padding: 10px;
+  font-size: 20px;
+}
