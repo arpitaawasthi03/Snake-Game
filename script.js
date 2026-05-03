@@ -152,3 +152,29 @@ window.addEventListener("keydown", (event) => {
   else if (event.key === "ArrowLeft") direction = "left";
   else if (event.key === "ArrowRight") direction = "right";
 });
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+window.addEventListener("touchstart", (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+});
+
+window.addEventListener("touchend", (e) => {
+  let touchEndX = e.changedTouches[0].clientX;
+  let touchEndY = e.changedTouches[0].clientY;
+
+  let dx = touchEndX - touchStartX;
+  let dy = touchEndY - touchStartY;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    // Horizontal swipe
+    if (dx > 0) direction = "right";
+    else direction = "left";
+  } else {
+    // Vertical swipe
+    if (dy > 0) direction = "down";
+    else direction = "up";
+  }
+});

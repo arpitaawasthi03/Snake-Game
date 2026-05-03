@@ -96,7 +96,7 @@ section{
     width: 100vw;
     position: fixed;
     top: 0;
-    background-color: rbga(12,12,12,0.7);
+    background-color: rgba(12,12,12,0.7);
     backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
