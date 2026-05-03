@@ -1,3 +1,5 @@
+// Selecting DOM elements
+
 const board = document.querySelector(".board");
 const startBtn = document.querySelector(".btn-start");
 const modal = document.querySelector(".modal");
@@ -34,6 +36,8 @@ let food = {
 
 let direction = "down";
 
+// Create grid (board) dynamically based on rows and columns
+
 for (let r = 0; r < rows; r++) {
   for (let c = 0; c < cols; c++) {
     const block = document.createElement("div");
@@ -44,7 +48,10 @@ for (let r = 0; r < rows; r++) {
   }
 }
 
+// Main game loop: handles movement, collision, food, and rendering
+
 function render() {
+
   let head = null;
 
   blocks[`${food.x},${food.y}`].classList.add("food");
@@ -59,6 +66,7 @@ function render() {
     head = { x: snake[0].x - 1, y: snake[0].y };
   }
 
+  // Check collision with walls (game over)
   if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
     // alert("Opps!!! Khel khtm!!!")
     clearInterval(intervalId);
@@ -70,6 +78,7 @@ function render() {
     return;
   }
 
+  // Check if snake eats food
   if(head.x == food.x && head.y == food.y){
       blocks[`${food.x},${food.y}`].classList.remove("food");
       food = {x : Math.floor(Math.random()*rows) , y : Math.floor(Math.random()*cols)};
@@ -86,36 +95,49 @@ function render() {
 
   }
 
+  // Remove previous snake position from board
   snake.forEach((segment) => {
     blocks[`${segment.x},${segment.y}`].classList.remove("fill");
   });
 
+  // Move snake: add new head and remove tail
   snake.unshift(head);
   snake.pop();
 
+  // Draw updated snake on board
   snake.forEach((segment) => {
     blocks[`${segment.x},${segment.y}`].classList.add("fill");
   });
+
 }
+
+// Start game: hide modal and begin game + timer loops
 
 startBtn.addEventListener("click", () => {
   modal.style.display = "none";
+
   intervalId = setInterval(() => {
     render();
   }, 300);
+
   timerIntervalId = setInterval(() => {
     let [min,sec] = time.split(":").map(Number);
+
     if(sec == 59){
       min += 1
       sec = 0;
-    }
-    else{
+    } else{
       sec += 1;
     }
+
     time = `${min}:${sec}`
     timeElement.innerText = time;
+
   },1000)
+
 });
+
+// Reset game state and restart game
 
 restartButton.addEventListener("click", restartGame);
 
@@ -146,12 +168,16 @@ function restartGame() {
   }, 300);
 }
 
+// Keyboard controls for desktop
+
 window.addEventListener("keydown", (event) => {
   if (event.key === "ArrowUp") direction = "up";
   else if (event.key === "ArrowDown") direction = "down";
   else if (event.key === "ArrowLeft") direction = "left";
   else if (event.key === "ArrowRight") direction = "right";
 });
+
+// Store initial touch position for swipe detection
 
 let touchStartX = 0;
 let touchStartY = 0;
@@ -160,6 +186,8 @@ window.addEventListener("touchstart", (e) => {
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
 });
+
+// Detect swipe direction and update snake direction safely
 
 window.addEventListener("touchend", (e) => {
   let touchEndX = e.changedTouches[0].clientX;
@@ -178,9 +206,9 @@ window.addEventListener("touchend", (e) => {
     else direction = "up";
   }
 });
-function setDirection(dir) {
-  direction = dir;
-}
+
+// Prevent snake from reversing into itself (game-breaking bug fix)
+
 function setDirectionSafe(newDir) {
   if (
     (direction === "up" && newDir === "down") ||
