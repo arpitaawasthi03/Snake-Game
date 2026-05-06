@@ -165,7 +165,7 @@ function restartGame() {
   };
   intervalId = setInterval(() => {
     render();
-  }, 300);
+  }, 150);
 }
 
 // Keyboard controls for desktop
